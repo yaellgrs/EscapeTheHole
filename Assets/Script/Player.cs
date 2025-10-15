@@ -4,7 +4,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float speed = 5f;
-    public float rotationSpeed = 10f;
+    public float rotationSpeed = 2f;
 
     private Rigidbody rb;
     private Vector3 move;
@@ -25,18 +25,23 @@ public class Player : MonoBehaviour
         move = new Vector3(horizontal, 0, vertical).normalized;
 
 
+
     }
 
     private void FixedUpdate()
     {
         if (move.magnitude > 0.01f)
         {
-            rb.MovePosition(rb.position + move * speed * Time.fixedDeltaTime);
+            // Déplacement
+            Vector3 moveDir = move.normalized;
+            rb.MovePosition(rb.position + moveDir * speed * Time.fixedDeltaTime);
 
-            // Rotation progressive (smooth)
-            Quaternion targetRot = Quaternion.LookRotation(move);
+            // Rotation selon le vecteur de mouvement
+            Quaternion targetRot = Quaternion.LookRotation(moveDir, Vector3.up);
+
             rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime));
         }
     }
+    
 }
 
