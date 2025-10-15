@@ -14,6 +14,10 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        int solLayer = LayerMask.NameToLayer("Ground");
+        int objetLayer = LayerMask.NameToLayer("Fruit");
+
+
     }
 
     // Update is called once per frame
