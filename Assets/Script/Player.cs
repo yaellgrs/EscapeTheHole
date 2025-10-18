@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
 {
     public float speed = 5f;
     public float rotationSpeed = 2f;
+    private float sprintTime = 2f;
 
     private Rigidbody rb;
     private Vector3 move;
@@ -28,8 +29,21 @@ public class Player : MonoBehaviour
 
         move = new Vector3(horizontal, 0, vertical).normalized;
 
+        upSprint();
+    }
 
-
+    private void upSprint()
+    {
+        if(sprintTime < 2f) sprintTime += Time.deltaTime/5;
+        if(sprintTime > 0 && Input.GetKey(KeyCode.LeftShift))
+        {
+            speed = 8f;
+            sprintTime -= Time.deltaTime;
+        }
+        else
+        {
+            speed = 5f;
+        }
     }
 
     private void FixedUpdate()
@@ -48,4 +62,3 @@ public class Player : MonoBehaviour
     }
     
 }
-
