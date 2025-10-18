@@ -1,14 +1,19 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 
 public class Player : MonoBehaviour
 {
+    public Hole hole;
+
     public float speed = 5f;
     public float rotationSpeed = 2f;
     private float sprintTime = 2f;
+    private float sprintSpeed = 0f;
 
     private Rigidbody rb;
     private Vector3 move;
+    
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -17,6 +22,8 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         int solLayer = LayerMask.NameToLayer("Ground");
         int objetLayer = LayerMask.NameToLayer("Fruit");
+
+        rb.AddForce(Physics.gravity * 3, ForceMode.Acceleration);
 
 
     }
@@ -37,13 +44,22 @@ public class Player : MonoBehaviour
         if(sprintTime < 2f) sprintTime += Time.deltaTime/5;
         if(sprintTime > 0 && Input.GetKey(KeyCode.LeftShift))
         {
-            speed = 8f;
+            sprintSpeed = 4f;
             sprintTime -= Time.deltaTime;
         }
         else
         {
-            speed = 5f;
+            sprintSpeed = 0f;
         }
+
+        HUD.instance.upSprint((sprintTime / 2) * 100f);
+    }
+
+    private bool isNearToHole()
+    {
+        if (Vector3.Distance(transform.position, hole.transform.position) < 2f)  return true;
+        
+        return false;
     }
 
     private void FixedUpdate()
@@ -52,7 +68,15 @@ public class Player : MonoBehaviour
         {
             // Déplacement
             Vector3 moveDir = move.normalized;
-            rb.MovePosition(rb.position + moveDir * speed * Time.fixedDeltaTime);
+
+
+            float Speed = speed + sprintSpeed;
+            if (isNearToHole()){ 
+                Speed /= 3f;
+                Debug.Log("speed : " + Speed);
+            }
+
+            rb.MovePosition(rb.position + moveDir * Speed * Time.fixedDeltaTime);
 
             // Rotation selon le vecteur de mouvement
             Quaternion targetRot = Quaternion.LookRotation(moveDir, Vector3.up);

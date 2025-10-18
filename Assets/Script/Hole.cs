@@ -11,10 +11,13 @@ public class Hole : MonoBehaviour
     private bool isfocusPlayer = true;
     private GameObject focusedFruit;
 
+    private float baseY;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        baseY = transform.position.y;
 
     }
 
@@ -22,6 +25,10 @@ public class Hole : MonoBehaviour
     {   
         calculFocusing();
         setFocusing();
+
+        Vector3 pos = transform.position;
+        pos.y = baseY;
+        transform.position = pos;
     }
 
     private void calculFocusing()
