@@ -8,11 +8,13 @@ public class Player : MonoBehaviour
 
     public float speed = 5f;
     public float rotationSpeed = 2f;
-    private float sprintTime = 2f;
+    private float sprintTime = 1f;
     private float sprintSpeed = 0f;
 
     private Rigidbody rb;
     private Vector3 move;
+
+    public int level = 3;
     
 
 
@@ -41,18 +43,19 @@ public class Player : MonoBehaviour
 
     private void upSprint()
     {
-        if(sprintTime < 2f) sprintTime += Time.deltaTime/5;
+        if(sprintTime < 1f) sprintTime += Time.deltaTime/5;
         if(sprintTime > 0 && Input.GetKey(KeyCode.LeftShift))
         {
-            sprintSpeed = 4f;
+            sprintSpeed = 3f;
             sprintTime -= Time.deltaTime;
         }
         else
         {
             sprintSpeed = 0f;
         }
+        if(sprintTime < 0f) sprintTime = 0f;
 
-        HUD.instance.upSprint((sprintTime / 2) * 100f);
+        HUD.instance.upSprint((sprintTime / 1) * 100f);
     }
 
     private bool isNearToHole()
@@ -73,7 +76,6 @@ public class Player : MonoBehaviour
             float Speed = speed + sprintSpeed;
             if (isNearToHole()){ 
                 Speed /= 3f;
-                Debug.Log("speed : " + Speed);
             }
 
             rb.MovePosition(rb.position + moveDir * Speed * Time.fixedDeltaTime);

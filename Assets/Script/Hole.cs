@@ -1,5 +1,11 @@
+using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+
+using static UnityEngine.Rendering.DebugUI;
 
 public class Hole : MonoBehaviour
 {
@@ -7,9 +13,16 @@ public class Hole : MonoBehaviour
     public Player player;
     private NavMeshAgent agent;
 
-    public float setFocusTimer = 3f;
+    public float setFocusTimer = 5f;
     private bool isfocusPlayer = true;
-    private GameObject focusedFruit;
+    private Fruit focusedFruit;
+    public List<Fruit> fruits;
+
+    [SerializeField] private Image xpBarre;
+    public float xp;
+    private float xpMax = 4f;
+    private int level = 1;
+
 
     private float baseY;
 
@@ -18,6 +31,11 @@ public class Hole : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         baseY = transform.position.y;
+
+        xpBarre.fillAmount = xp / xpMax;
+
+        fruits = FindObjectsByType<Fruit>(FindObjectsSortMode.None).ToList();
+        Debug.Log(fruits.Count);
 
     }
 
@@ -29,6 +47,22 @@ public class Hole : MonoBehaviour
         Vector3 pos = transform.position;
         pos.y = baseY;
         transform.position = pos;
+
+
+        //xpBarre.fillAmount = 0.1f + (xp / xpMax) * (0.9f - 0.1f);
+        xpBarre.fillAmount = Mathf.Lerp(xpBarre.fillAmount, 0.1f + (xp / xpMax) * (0.9f - 0.1f), 3* Time.deltaTime);
+    }
+
+    public void addXp(float amount)
+    {
+        xp = Mathf.Clamp(xp + amount, 0, xpMax);
+        if(xp >= xpMax)
+        {
+            xp = 0;
+            xpMax *= 2;
+            transform.localScale *= 1.5f;
+            level++;
+        }
     }
 
     private void calculFocusing()
@@ -36,20 +70,43 @@ public class Hole : MonoBehaviour
         if (setFocusTimer <= 0f)
         {
             setFocusTimer = 3f;
-            isfocusPlayer = Random.Range(0, 3) == 1;
+
+                
+
+            if (isfocusPlayer) isfocusPlayer = false;
+            else{
+                isfocusPlayer = Random.Range(0, 3) == 1;
+
+                if (level < player.level) isfocusPlayer = false;
+            }
+
             if (!isfocusPlayer)
             {
-                focusedFruit = GameObject.FindGameObjectsWithTag("Fruit")[1];
+                focusedFruit = getFocusedFruit();
+                if (focusedFruit == null) isfocusPlayer = true; 
             }
         }
 
-        if (isfocusPlayer) setFocusTimer -= Time.deltaTime;
+         setFocusTimer -= Time.deltaTime;
     }
 
     private void setFocusing()
     {
         if (isfocusPlayer && player != null) agent.SetDestination(player.transform.position);
         else if (focusedFruit != null) agent.SetDestination(focusedFruit.transform.position);
+    }
+
+    private Fruit getFocusedFruit()
+    {
+        foreach(Fruit fruit in fruits)
+        {
+            if(fruit == null) continue;
+            if (fruit.level <= level) {
+                fruits.Remove(fruit);
+                return fruit; 
+            }
+        }
+        return null;
     }
 
 

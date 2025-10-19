@@ -9,16 +9,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: cc4245038f440aa409362642bcb166d0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cc4245038f440aa409362642bcb166d0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cc4245038f440aa409362642bcb166d0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: cc4245038f440aa409362642bcb166d0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.74163
+      value: -17.747744
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cc4245038f440aa409362642bcb166d0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.13862705
+      value: 0.9631885
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cc4245038f440aa409362642bcb166d0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.8131657
+      value: -2.4900007
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cc4245038f440aa409362642bcb166d0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -70,6 +82,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cc4245038f440aa409362642bcb166d0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5266929106992598800}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cc4245038f440aa409362642bcb166d0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -9082392433004858331}
   m_SourcePrefab: {fileID: 100100000, guid: cc4245038f440aa409362642bcb166d0, type: 3}
 --- !u!1 &4906560732973522119 stripped
 GameObject:
@@ -124,3 +139,17 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.94635993
   m_Center: {x: 0, y: 0.46115214, z: 0}
+--- !u!114 &-9082392433004858331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4906560732973522119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51108f58af18887478b385a59dae5f49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xp: 4
+  level: 3
