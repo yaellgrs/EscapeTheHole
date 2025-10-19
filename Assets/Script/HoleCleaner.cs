@@ -15,6 +15,7 @@ public class HoleCleaner : MonoBehaviour
         }
         else Debug.Log("fruit null");
 
+
         Destroy(other.gameObject);
     }
 

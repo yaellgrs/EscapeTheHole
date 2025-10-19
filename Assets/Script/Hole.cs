@@ -75,7 +75,7 @@ public class Hole : MonoBehaviour
 
             if (isfocusPlayer) isfocusPlayer = false;
             else{
-                isfocusPlayer = Random.Range(0, 3) == 1;
+                isfocusPlayer = Random.Range(0, 4) != 1;
 
                 if (level < player.level) isfocusPlayer = false;
             }

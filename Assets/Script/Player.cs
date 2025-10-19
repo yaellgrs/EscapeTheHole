@@ -1,5 +1,7 @@
+using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 
 public class Player : MonoBehaviour
@@ -14,8 +16,17 @@ public class Player : MonoBehaviour
     private Rigidbody rb;
     private Vector3 move;
 
-    public int level = 3;
-    
+    public int level = 1;
+
+    public GameObject fruit;
+
+    public GameObject applePrefab;
+    public GameObject bananaPrefab;
+    public GameObject orangePrefab;
+    public GameObject waterMelonPrefab;
+
+    public CinemachineFollow cameraFollow;
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -39,6 +50,12 @@ public class Player : MonoBehaviour
         move = new Vector3(horizontal, 0, vertical).normalized;
 
         upSprint();
+
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            level++;
+            setNextMesh();
+        }
     }
 
     private void upSprint()
@@ -57,6 +74,44 @@ public class Player : MonoBehaviour
 
         HUD.instance.upSprint((sprintTime / 1) * 100f);
     }
+
+
+    private void setNextMesh()
+    {
+        GameObject fruitPrefab = null;
+
+        switch (level)
+        {
+            case 2:
+                fruitPrefab = applePrefab;
+                break;
+            case 3:
+                fruitPrefab = bananaPrefab;
+                break;
+            case 4:
+                fruitPrefab = orangePrefab;
+                break;
+            case 5:
+                fruitPrefab = waterMelonPrefab;
+                break;
+            default:
+                Debug.LogWarning("Aucun fruit pour le niveau " + level);
+                return;
+        }
+        if (fruit != null) Destroy(fruit);
+
+        fruit = Instantiate(fruitPrefab, transform);
+        fruit.transform.localPosition = Vector3.zero;
+        fruit.transform.localRotation = Quaternion.identity;
+
+        if(level ==3 ) fruit.transform.localRotation = Quaternion.Euler(0f, 90f, 0f);
+
+        cameraFollow.FollowOffset += Vector3.up;
+
+        transform.position += Vector3.up;
+
+    }
+
 
     private bool isNearToHole()
     {
