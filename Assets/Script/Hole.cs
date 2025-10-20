@@ -14,6 +14,7 @@ public class Hole : MonoBehaviour
     private NavMeshAgent agent;
 
     public float setFocusTimer = 5f;
+    private float timeTrackingPlayer = 5f;
     private bool isfocusPlayer = true;
     private Fruit focusedFruit;
     public List<Fruit> fruits;
@@ -30,7 +31,7 @@ public class Hole : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        baseY = transform.position.y;
+
 
         xpBarre.fillAmount = xp / xpMax;
 
@@ -69,7 +70,7 @@ public class Hole : MonoBehaviour
     {
         if (setFocusTimer <= 0f)
         {
-            setFocusTimer = 3f;
+            setFocusTimer = timeTrackingPlayer;
 
                 
 
@@ -92,7 +93,7 @@ public class Hole : MonoBehaviour
 
     private void setFocusing()
     {
-        if (isfocusPlayer && player != null) agent.SetDestination(player.transform.position);
+        if (isfocusPlayer && player != null) agent.SetDestination(player.fruit.transform.position);
         else if (focusedFruit != null) agent.SetDestination(focusedFruit.transform.position);
     }
 

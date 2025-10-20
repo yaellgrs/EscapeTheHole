@@ -2,7 +2,7 @@ using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     private Vector3 move;
 
     public int level = 1;
+    public int xp = 0;
+    private int xpMax = 4;
 
     public GameObject fruit;
 
@@ -26,6 +28,8 @@ public class Player : MonoBehaviour
     public GameObject waterMelonPrefab;
 
     public CinemachineFollow cameraFollow;
+
+    [SerializeField] private Image xpBarre;
 
 
 
@@ -38,7 +42,6 @@ public class Player : MonoBehaviour
 
         rb.AddForce(Physics.gravity * 3, ForceMode.Acceleration);
 
-
     }
 
     // Update is called once per frame
@@ -50,9 +53,23 @@ public class Player : MonoBehaviour
         move = new Vector3(horizontal, 0, vertical).normalized;
 
         upSprint();
+        /*
+                if(Input.GetKeyDown(KeyCode.E))
+                {
+                    level++;
+                    setNextMesh();
+                }*/
+        xpBarre.fillAmount = Mathf.Lerp(xpBarre.fillAmount, 0.1f + (xp / (float)xpMax) * (0.9f - 0.1f), 3 * Time.deltaTime);
+        xpBarre.transform.position = fruit.transform.position;
+    }
 
-        if(Input.GetKeyDown(KeyCode.E))
+    public void addXp(int amount)
+    {
+        xp = Mathf.Clamp(xp + amount, 0, xpMax);
+        if (xp >= xpMax)
         {
+            xp = 0;
+            xpMax *= 2;
             level++;
             setNextMesh();
         }
@@ -109,6 +126,8 @@ public class Player : MonoBehaviour
         cameraFollow.FollowOffset += Vector3.up;
 
         transform.position += Vector3.up;
+
+        xpBarre.transform.localScale *= 1.5f;
 
     }
 
