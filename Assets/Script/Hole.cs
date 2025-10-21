@@ -26,6 +26,10 @@ public class Hole : MonoBehaviour
 
 
     private float baseY;
+    private void Awake()
+    {
+        baseY = transform.position.y;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -41,13 +45,16 @@ public class Hole : MonoBehaviour
     }
 
     void Update()
-    {   
-        calculFocusing();
-        setFocusing();
-
+    {
         Vector3 pos = transform.position;
         pos.y = baseY;
         transform.position = pos;
+
+
+        calculFocusing();
+        setFocusing();
+
+
 
 
         //xpBarre.fillAmount = 0.1f + (xp / xpMax) * (0.9f - 0.1f);
@@ -93,8 +100,8 @@ public class Hole : MonoBehaviour
 
     private void setFocusing()
     {
-        if (isfocusPlayer && player != null) agent.SetDestination(player.fruit.transform.position);
-        else if (focusedFruit != null) agent.SetDestination(focusedFruit.transform.position);
+        if (isfocusPlayer && player != null) { agent.SetDestination(player.fruit.transform.position);  }
+        else if (focusedFruit != null) agent.SetDestination(focusedFruit.transform.position);;
     }
 
     private Fruit getFocusedFruit()
@@ -109,6 +116,7 @@ public class Hole : MonoBehaviour
         }
         return null;
     }
+
 
 
     private void OnTriggerEnter(Collider other)

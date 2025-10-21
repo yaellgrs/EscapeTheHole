@@ -18,7 +18,8 @@ public class Collectible : MonoBehaviour
     {
         if(other.gameObject.layer == LayerMask.NameToLayer("Fruit"))
         {
-            other.GetComponentInParent<Player>().addXp(1);
+            Player player = other.GetComponentInParent<Player>();
+            if(player != null) player.addXp(1);
             Destroy(gameObject);
         }
 

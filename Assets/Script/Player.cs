@@ -6,20 +6,26 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    [Header("-- Hole --")]
     public Hole hole;
 
+    [Header("-- Camera --")]
+    public CinemachineFollow cameraFollow;
+
+    [Header("-- movement --")]
     public float speed = 5f;
     public float rotationSpeed = 2f;
     private float sprintTime = 1f;
     private float sprintSpeed = 0f;
-
-    private Rigidbody rb;
     private Vector3 move;
 
+    [Header("-- level --")]
     public int level = 1;
     public int xp = 0;
     private int xpMax = 4;
 
+
+    [Header("-- fruits --")]
     public GameObject fruit;
 
     public GameObject applePrefab;
@@ -27,9 +33,16 @@ public class Player : MonoBehaviour
     public GameObject orangePrefab;
     public GameObject waterMelonPrefab;
 
-    public CinemachineFollow cameraFollow;
+    [Header("-- lazer --")]
+    public Lazer lazerPrefab;
 
+    [Header("-- UI --")]
     [SerializeField] private Image xpBarre;
+
+
+    //other
+    private Rigidbody rb;
+
 
 
 
@@ -53,12 +66,13 @@ public class Player : MonoBehaviour
         move = new Vector3(horizontal, 0, vertical).normalized;
 
         upSprint();
-        /*
-                if(Input.GetKeyDown(KeyCode.E))
-                {
-                    level++;
-                    setNextMesh();
-                }*/
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Lazer lazer = Instantiate(lazerPrefab, fruit.transform.position, fruit.transform.rotation);
+            lazer.GetComponent<Rigidbody>().AddForce(fruit.transform.right * -900f);
+        }
+
         xpBarre.fillAmount = Mathf.Lerp(xpBarre.fillAmount, 0.1f + (xp / (float)xpMax) * (0.9f - 0.1f), 3 * Time.deltaTime);
         xpBarre.transform.position = fruit.transform.position;
     }
@@ -134,7 +148,7 @@ public class Player : MonoBehaviour
 
     private bool isNearToHole()
     {
-        if (Vector3.Distance(transform.position, hole.transform.position) < 2f)  return true;
+        if (Vector3.Distance(transform.position, hole.transform.position) < 1.5f)  return true;
         
         return false;
     }
@@ -160,5 +174,10 @@ public class Player : MonoBehaviour
             rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime));
         }
     }
-    
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Player collide with " + collision.collider);
+    }
+
 }
