@@ -135,7 +135,8 @@ public class Player : MonoBehaviour
         fruit.transform.localPosition = Vector3.zero;
         fruit.transform.localRotation = Quaternion.identity;
 
-        if(level ==3 ) fruit.transform.localRotation = Quaternion.Euler(0f, 90f, 0f);
+        //if(level ==3 ) 
+        fruit.transform.localRotation = Quaternion.Euler(0f, 90f, 0f);
 
         cameraFollow.FollowOffset += Vector3.up;
 
@@ -148,7 +149,7 @@ public class Player : MonoBehaviour
 
     private bool isNearToHole()
     {
-        if (Vector3.Distance(transform.position, hole.transform.position) < 1.5f)  return true;
+        if (Vector3.Distance(transform.position, hole.transform.position) < 2f)  return true;
         
         return false;
     }

@@ -46,16 +46,13 @@ public class Hole : MonoBehaviour
 
     void Update()
     {
+
         Vector3 pos = transform.position;
         pos.y = baseY;
         transform.position = pos;
 
-
         calculFocusing();
         setFocusing();
-
-
-
 
         //xpBarre.fillAmount = 0.1f + (xp / xpMax) * (0.9f - 0.1f);
         xpBarre.fillAmount = Mathf.Lerp(xpBarre.fillAmount, 0.1f + (xp / xpMax) * (0.9f - 0.1f), 3* Time.deltaTime);

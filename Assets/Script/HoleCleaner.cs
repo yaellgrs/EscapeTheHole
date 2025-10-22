@@ -13,7 +13,6 @@ public class HoleCleaner : MonoBehaviour
             hole.addXp(fruit.xp);
 
         }
-        else Debug.Log("fruit null");
 
 
         Destroy(other.gameObject);
