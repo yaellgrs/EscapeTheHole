@@ -37,7 +37,6 @@ public class Hole : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
 
-
         xpBarre.fillAmount = xp / xpMax;
 
         fruits = FindObjectsByType<Fruit>(FindObjectsSortMode.None).ToList();
@@ -69,6 +68,7 @@ public class Hole : MonoBehaviour
             transform.localScale *= 1.5f;
             level++;
         }
+        if (xp <= 0) { Destroy(gameObject); }
     }
 
     public void calculFocusing()
@@ -84,7 +84,6 @@ public class Hole : MonoBehaviour
                 isfocusPlayer = Random.Range(0, 4) != 1;
 
                 if (level < player.level) isfocusPlayer = false;
-                Debug.Log("hole level : " + level + " player level : " + player.level);
             }
 
             if (!isfocusPlayer)
@@ -99,20 +98,13 @@ public class Hole : MonoBehaviour
 
     public void setFocusing()
     {
-        if(focusedFruit != null ) Debug.Log("Focused fruit: " + focusedFruit.name + " Distance: " + Vector3.Distance(transform.position, focusedFruit.transform.position));
-        if (agent == null){ Debug.Log("pas d'agent"); return; }
+        if (agent == null) return; 
 
         if (isfocusPlayer && player != null && player.fruit != null)
             agent.SetDestination(player.fruit.transform.position);
         else if (focusedFruit != null)
         {
             agent.SetDestination(focusedFruit.transform.position);
-            NavMeshPath path = new NavMeshPath();
-            bool canReach = agent.CalculatePath(focusedFruit.transform.position, path);
-            Debug.Log("Can reach: " + canReach + " Corners: " + path.corners.Length);
-            Debug.Log("Agent stopped: " + agent.isStopped);
-            Debug.Log("Agent velocity: " + agent.velocity);
-            Debug.Log("Agent remainingDistance: " + agent.remainingDistance);
         }
         else
             agent.ResetPath(); // pour éviter qu’il reste bloqué
@@ -128,7 +120,6 @@ public class Hole : MonoBehaviour
                 return fruit; 
             }
         }
-        Debug.Log("aucun fruit trouvé");
         return null;
     }
 

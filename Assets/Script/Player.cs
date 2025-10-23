@@ -86,9 +86,7 @@ public class Player : MonoBehaviour
             xpMax *= 2;
             level++;
             setNextMesh();
-            if(hole.isfocusPlayer)hole.setFocusTimer = 0.5f;
-/*            hole.calculFocusing();
-            hole.setFocusing();*/
+            if(hole.isfocusPlayer)hole.setFocusTimer = 0f;
         }
     }
 
@@ -152,6 +150,7 @@ public class Player : MonoBehaviour
 
     private bool isNearToHole()
     {
+        if (hole == null) return false;
         if (Vector3.Distance(transform.position, hole.transform.position) < 2f)  return true;
         
         return false;

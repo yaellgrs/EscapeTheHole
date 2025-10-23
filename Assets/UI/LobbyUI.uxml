@@ -1,0 +1,10 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/style/style.uss?fileID=7433441132597879392&amp;guid=2ddd17d86e3726e41bbcfe77f3a063fb&amp;type=3#style" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.8); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;">
+        <ui:Label text="ESCAPE THE HOLE" name="title" class="LblTitle" />
+        <ui:VisualElement style="flex-grow: 1; position: absolute; height: 15%; width: 70%; top: 75%; left: 15%;">
+            <ui:Button text="PLAY" name="play" class="button BtnPlay" style="background-color: rgb(23, 255, 30);" />
+            <ui:Button text="EXIT" name="exit" class="button BtnExit" style="background-color: rgb(255, 40, 23);" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,103 @@
+.button {
+    transition-duration: 0.2s;
+    top: 0;
+}
+
+.button:active {
+    transition-duration: 0.2s;
+    scale: 0.8 0.8;
+}
+
+.BtnPlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 40%;
+    border-top-width: 10px;
+    border-right-width: 10px;
+    border-bottom-width: 10px;
+    border-left-width: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-left-color: rgb(96, 0, 255);
+    border-right-color: rgb(96, 0, 255);
+    border-top-color: rgb(96, 0, 255);
+    border-bottom-color: rgb(96, 0, 255);
+    background-color: rgba(23, 255, 30, 0.63);
+    font-size: 50px;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+    transition-duration: 0.5s;
+}
+
+.BtnPlayBottom {
+    top: 200%;
+    transition-duration: 0.5s;
+}
+
+.BtnExit {
+    position: absolute;
+    top: 0;
+    left: 60%;
+    height: 100%;
+    width: 40%;
+    border-top-width: 10px;
+    border-right-width: 10px;
+    border-bottom-width: 10px;
+    border-left-width: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-left-color: rgb(96, 0, 255);
+    border-right-color: rgb(96, 0, 255);
+    border-top-color: rgb(96, 0, 255);
+    border-bottom-color: rgb(96, 0, 255);
+    background-color: rgba(255, 40, 23, 0.63);
+    -unity-font-style: bold;
+    font-size: 50px;
+    color: rgb(255, 255, 255);
+    transition-duration: 0.5s;
+}
+
+.BtnExitBottom {
+    top: 200%;
+    transition-duration: 0.5s;
+}
+
+.LblTitle {
+    font-size: 100px;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+    -unity-text-align: middle-center;
+    height: 236px;
+    width: 100%;
+    position: absolute;
+    -unity-text-outline-width: 5px;
+    -unity-text-outline-color: rgb(100, 0, 255);
+    transition-duration: 0.5s;
+    top: 0;
+}
+
+.LblTitleTop {
+    top: -30%;
+    transition-duration: 0.5s;
+}
+
+.VELevel {
+    flex-grow: 1;
+    position: absolute;
+    width: 80%;
+    left: 10%;
+    height: 50%;
+    top: 17.5%;
+    transition-duration: 0.5s;
+}
+
+.VELevelLeft {
+    left: -80%;
+    transition-duration: 0.5s;
+}

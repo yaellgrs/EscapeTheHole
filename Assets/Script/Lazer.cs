@@ -13,10 +13,20 @@ public class Lazer : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Hole"))
+        Hole hole = other.GetComponent<Hole>();
+
+        if (hole != null)
         {
-            other.GetComponent<Hole>().addXp(-1);
-            Destroy(gameObject);
+            Debug.Log("hole before xp : " + hole.xp);
+            if( hole.xp > 0 ) hole.addXp(-1);
+            Debug.Log("hole after xp : " + hole.xp);
+
+
         }
+        else
+        {
+            Debug.Log("hole not find but : " + other.gameObject.name);
+        }
+
     }
 }
