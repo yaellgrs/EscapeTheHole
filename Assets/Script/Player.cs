@@ -86,6 +86,9 @@ public class Player : MonoBehaviour
             xpMax *= 2;
             level++;
             setNextMesh();
+            if(hole.isfocusPlayer)hole.setFocusTimer = 0.5f;
+/*            hole.calculFocusing();
+            hole.setFocusing();*/
         }
     }
 
@@ -175,10 +178,4 @@ public class Player : MonoBehaviour
             rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime));
         }
     }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("Player collide with " + collision.collider);
-    }
-
 }

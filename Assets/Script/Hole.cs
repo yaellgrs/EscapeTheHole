@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -15,8 +16,8 @@ public class Hole : MonoBehaviour
 
     public float setFocusTimer = 5f;
     private float timeTrackingPlayer = 5f;
-    private bool isfocusPlayer = true;
-    private Fruit focusedFruit;
+    public bool isfocusPlayer = true;
+    public Fruit focusedFruit;
     public List<Fruit> fruits;
 
     [SerializeField] private Image xpBarre;
@@ -70,7 +71,7 @@ public class Hole : MonoBehaviour
         }
     }
 
-    private void calculFocusing()
+    public void calculFocusing()
     {
         if (setFocusTimer <= 0f)
         {
@@ -83,6 +84,7 @@ public class Hole : MonoBehaviour
                 isfocusPlayer = Random.Range(0, 4) != 1;
 
                 if (level < player.level) isfocusPlayer = false;
+                Debug.Log("hole level : " + level + " player level : " + player.level);
             }
 
             if (!isfocusPlayer)
@@ -95,22 +97,38 @@ public class Hole : MonoBehaviour
          setFocusTimer -= Time.deltaTime;
     }
 
-    private void setFocusing()
+    public void setFocusing()
     {
-        if (isfocusPlayer && player != null) { agent.SetDestination(player.fruit.transform.position);  }
-        else if (focusedFruit != null) agent.SetDestination(focusedFruit.transform.position);;
+        if(focusedFruit != null ) Debug.Log("Focused fruit: " + focusedFruit.name + " Distance: " + Vector3.Distance(transform.position, focusedFruit.transform.position));
+        if (agent == null){ Debug.Log("pas d'agent"); return; }
+
+        if (isfocusPlayer && player != null && player.fruit != null)
+            agent.SetDestination(player.fruit.transform.position);
+        else if (focusedFruit != null)
+        {
+            agent.SetDestination(focusedFruit.transform.position);
+            NavMeshPath path = new NavMeshPath();
+            bool canReach = agent.CalculatePath(focusedFruit.transform.position, path);
+            Debug.Log("Can reach: " + canReach + " Corners: " + path.corners.Length);
+            Debug.Log("Agent stopped: " + agent.isStopped);
+            Debug.Log("Agent velocity: " + agent.velocity);
+            Debug.Log("Agent remainingDistance: " + agent.remainingDistance);
+        }
+        else
+            agent.ResetPath(); // pour éviter qu’il reste bloqué
     }
 
     private Fruit getFocusedFruit()
     {
-        foreach(Fruit fruit in fruits)
+        foreach(Fruit fruit in fruits.ToList())
         {
             if(fruit == null) continue;
             if (fruit.level <= level) {
-                fruits.Remove(fruit);
+
                 return fruit; 
             }
         }
+        Debug.Log("aucun fruit trouvé");
         return null;
     }
 

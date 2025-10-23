@@ -11,6 +11,7 @@ public class HoleCleaner : MonoBehaviour
         if (fruit != null)
         {
             hole.addXp(fruit.xp);
+            hole.fruits.Remove(fruit);
 
         }
 
