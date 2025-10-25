@@ -12,6 +12,7 @@ public class SelectLevelUI : MonoBehaviour
     private VisualElement VE_levels;
 
     private Button Btn_level1;
+    private Button Btn_level2;
     private Button Btn_back;
 
     private Label Lbl_level1;
@@ -38,11 +39,13 @@ public class SelectLevelUI : MonoBehaviour
         VE_levels = root.Q<VisualElement>("levels");
 
         Btn_level1 = root.Q<Button>("level1");
+        Btn_level2 = root.Q<Button>("level2");
 
         Btn_back = root.Q<Button>("back");
 
         setAnim();
         Btn_level1.clicked += ()=> { SceneManager.LoadScene("level1"); } ;
+        Btn_level2.clicked += ()=> { SceneManager.LoadScene("level2"); } ;
         Btn_back.clicked += Back;
 
         UpdateLabel(Lbl_level1, "level1");
