@@ -5,6 +5,8 @@ public class HUD : MonoBehaviour
 {
     public static HUD instance;
 
+    private Label Lbl_timer;
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -21,7 +23,16 @@ public class HUD : MonoBehaviour
     {
         var root = document.rootVisualElement;
         VE_filledSprint = root.Q<VisualElement>("filledSprint");
+        Lbl_timer = root.Q<Label>("timer");
 
+
+    }
+
+    public void upTimer(string time)
+    {
+
+
+        Lbl_timer.text = time;
 
     }
 

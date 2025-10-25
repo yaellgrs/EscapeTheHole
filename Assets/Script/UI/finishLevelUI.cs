@@ -10,6 +10,8 @@ public class FinishLevelUI : MonoBehaviour
     private Button Btn_home;
     private Button Btn_restart;
 
+    private Label Lbl_timer;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -23,8 +25,13 @@ public class FinishLevelUI : MonoBehaviour
         var root = document.rootVisualElement;
 
         Btn_home = root.Q<Button>("home");
+        Btn_restart = root.Q<Button>("restart");
+        Lbl_timer = root.Q<Label>("time");
+
+        if(GameManager.Instance != null ) Lbl_timer.text = GameManager.Instance.getTimeString();
 
         Btn_home.clicked += HomeClicked;
+        Btn_restart.clicked += RestartClicked;
 
 
     }
@@ -47,6 +54,11 @@ public class FinishLevelUI : MonoBehaviour
         LobbyUI.Instance.openSelectLevel = true;
         SceneManager.sceneLoaded -= OnLobbyLoaded; // désabonne pour éviter les doublons
 
+    }
+
+    private void RestartClicked()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void OnDisable()

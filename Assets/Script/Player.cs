@@ -75,7 +75,7 @@ public class Player : MonoBehaviour
         }
 
         xpBarre.fillAmount = Mathf.Lerp(xpBarre.fillAmount, 0.1f + (xp / (float)xpMax) * (0.9f - 0.1f), 3 * Time.deltaTime);
-        xpBarre.transform.position = fruit.transform.position;
+        if( fruit != null ) xpBarre.transform.position = fruit.transform.position;
     }
 
     public void addXp(int amount)
