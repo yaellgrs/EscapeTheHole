@@ -12,6 +12,8 @@ public class FinishLevelUI : MonoBehaviour
 
     private Label Lbl_timer;
 
+    private bool isWin = true;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,7 +30,16 @@ public class FinishLevelUI : MonoBehaviour
         Btn_restart = root.Q<Button>("restart");
         Lbl_timer = root.Q<Label>("time");
 
-        if(GameManager.Instance != null ) Lbl_timer.text = GameManager.Instance.getTimeString();
+        if (isWin)
+        {
+            if (GameManager.Instance != null)
+            {
+                Lbl_timer.text = GameManager.getTimeString(GameManager.Instance.timer);
+                
+                    TimeRecord.Instance.RecordTime(SceneManager.GetActiveScene().name, GameManager.Instance.timer);
+            }
+        }
+        else Lbl_timer.text = "game over";
 
         Btn_home.clicked += HomeClicked;
         Btn_restart.clicked += RestartClicked;
@@ -36,9 +47,10 @@ public class FinishLevelUI : MonoBehaviour
 
     }
 
-    public void Open()
+    public void Open(bool IsWin)
     {
         document.gameObject.SetActive(true);
+        isWin = IsWin;
 
     }
 

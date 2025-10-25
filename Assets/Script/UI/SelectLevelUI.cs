@@ -14,6 +14,10 @@ public class SelectLevelUI : MonoBehaviour
     private Button Btn_level1;
     private Button Btn_back;
 
+    private Label Lbl_level1;
+    private Label Lbl_level2;
+
+
 
 
     private void Start()
@@ -29,6 +33,8 @@ public class SelectLevelUI : MonoBehaviour
         var root = document.rootVisualElement;
 
         Lbl_title = root.Q<Label>("title");
+        Lbl_level1 = root.Q<Label>("level1time");
+        Lbl_level2 = root.Q<Label>("level2time");
         VE_levels = root.Q<VisualElement>("levels");
 
         Btn_level1 = root.Q<Button>("level1");
@@ -38,6 +44,32 @@ public class SelectLevelUI : MonoBehaviour
         setAnim();
         Btn_level1.clicked += ()=> { SceneManager.LoadScene("level1"); } ;
         Btn_back.clicked += Back;
+
+        UpdateLabel(Lbl_level1, "level1");
+        UpdateLabel(Lbl_level2, "level2");
+    }
+    private void UpdateLabel(Label label, string level)
+    {
+        if (TimeRecord.Instance != null)
+        {
+
+            var record = TimeRecord.Instance.GetRecord(level);
+            Debug.Log($"Raw record for level: {record}");
+
+            // Vérifie si le record est valide
+            if (record <= 0 )
+            {
+                label.text = "--:--";
+            }
+            else
+            {
+                label.text = GameManager.getTimeString(record);
+            }
+        }
+        else
+        {
+            label.text = "--:--";
+        }
     }
 
     private void setAnim()

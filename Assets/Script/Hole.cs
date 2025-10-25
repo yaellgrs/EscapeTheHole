@@ -77,7 +77,7 @@ public class Hole : MonoBehaviour
         if(lifeRegen <= 0f)
         {
             lifeRegen = 1f;
-            life = Mathf.Clamp(life + 1f, 0, lifeMax);
+            life = Mathf.Clamp(life + level, 0, lifeMax);
         }
     }
 
@@ -98,7 +98,7 @@ public class Hole : MonoBehaviour
     {
         life -= amount;
         if (life <= 0) {
-            GameManager.Instance.FinishGame();
+            GameManager.Instance.FinishGame(false);
             Destroy(gameObject);
         }
     }
@@ -120,7 +120,7 @@ public class Hole : MonoBehaviour
 
             if (!isfocusPlayer)
             {
-                focusedFruit = getFocusedFruit();
+                focusedFruit = GetFocusedFruit();
                 if (focusedFruit == null) isfocusPlayer = true; 
             }
         }
@@ -141,19 +141,25 @@ public class Hole : MonoBehaviour
 /*        else
             agent.ResetPath(); // pour éviter qu’il reste bloqué*/
     }
-
-    private Fruit getFocusedFruit()
+    private Fruit GetFocusedFruit()
     {
-        Debug.Log("fruits : " + fruits.Count);
-        
-        foreach(Fruit fruit in fruits.ToList())
-        {
-            if(fruit == null) continue;
-            if (fruit.level <= level) {
+        Debug.Log($"fruits : {fruits.Count}");
 
-                return fruit; 
-            }
+        // Mélange la liste (Fisher–Yates)
+        for (int i = 0; i < fruits.Count; i++)
+        {
+            int randomIndex = Random.Range(i, fruits.Count);
+            (fruits[i], fruits[randomIndex]) = (fruits[randomIndex], fruits[i]);
         }
+
+        // Parcourt la liste mélangée
+        foreach (var fruit in fruits)
+        {
+            if (fruit == null) continue;
+            if (fruit.level <= level)
+                return fruit;
+        }
+
         return null;
     }
 

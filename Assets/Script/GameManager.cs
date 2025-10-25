@@ -4,7 +4,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    private float timer = 0f;
+    public float timer = 0f;
 
     private void Awake()
     {
@@ -20,21 +20,21 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if(!isPause)timer += Time.deltaTime;
-        HUD.instance.upTimer(getTimeString());
+        HUD.instance.upTimer(getTimeString(timer));
     }
 
-    public string getTimeString()
+    public static string getTimeString(float time)
     {
-        int minute = Mathf.FloorToInt(timer / 60f);
-        float second = timer - minute * 60;
+        int minute = Mathf.FloorToInt(time / 60f);
+        float second = time - minute * 60;
 
 
         return string.Format("{0:00}:{1:00.00}", minute, second);
     }
 
-    public void FinishGame()
+    public void FinishGame(bool IsWin)
     {
-        finishLevelUI.Open();
+        finishLevelUI.Open(IsWin);
         isPause = true;
     }
 }
