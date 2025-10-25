@@ -17,9 +17,8 @@ public class Lazer : MonoBehaviour
 
         if (hole != null)
         {
-            Debug.Log("hole before xp : " + hole.xp);
-            if( hole.xp > 0 ) hole.addXp(-1);
-            Debug.Log("hole after xp : " + hole.xp);
+            hole.getDamage(1);
+            Debug.Log("hole hit");
 
 
         }

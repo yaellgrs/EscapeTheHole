@@ -21,9 +21,15 @@ public class Hole : MonoBehaviour
     public List<Fruit> fruits;
 
     [SerializeField] private Image xpBarre;
-    public float xp;
+    [SerializeField] private Image lifeBarre;
+    [SerializeField] private Image lifeLerpBarre;
+    public float xp = 0;
     private float xpMax = 4f;
     private int level = 1;
+
+    private float lifeMax = 10f;
+    private float life;
+    private float lifeRegen = 1f;
 
 
     private float baseY;
@@ -40,7 +46,8 @@ public class Hole : MonoBehaviour
         xpBarre.fillAmount = xp / xpMax;
 
         fruits = FindObjectsByType<Fruit>(FindObjectsSortMode.None).ToList();
-        Debug.Log(fruits.Count);
+
+        life = lifeMax;
 
     }
 
@@ -56,6 +63,8 @@ public class Hole : MonoBehaviour
 
         //xpBarre.fillAmount = 0.1f + (xp / xpMax) * (0.9f - 0.1f);
         xpBarre.fillAmount = Mathf.Lerp(xpBarre.fillAmount, 0.1f + (xp / xpMax) * (0.9f - 0.1f), 3* Time.deltaTime);
+        lifeBarre.fillAmount = Mathf.Lerp(lifeBarre.fillAmount, (life / lifeMax), 3 * Time.deltaTime);
+        lifeLerpBarre.fillAmount = Mathf.Lerp(lifeLerpBarre.fillAmount, (life / lifeMax), 1f * Time.deltaTime);
     }
 
     public void addXp(float amount)
@@ -68,7 +77,13 @@ public class Hole : MonoBehaviour
             transform.localScale *= 1.5f;
             level++;
         }
-        if (xp <= 0) { Destroy(gameObject); }
+
+    }
+
+    public void getDamage(float amount)
+    {
+        life -= amount;
+        if (life <= 0) { Destroy(gameObject); }
     }
 
     public void calculFocusing()
