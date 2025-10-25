@@ -3,6 +3,7 @@ using UnityEngine;
 public class Lazer : MonoBehaviour
 {
     private Rigidbody rb;
+    public int damage = 1;
     private void Start()
     {
 /*        rb = GetComponent<Rigidbody>();
@@ -17,7 +18,7 @@ public class Lazer : MonoBehaviour
 
         if (hole != null)
         {
-            hole.getDamage(1);
+            hole.getDamage(damage);
             Debug.Log("hole hit");
 
 

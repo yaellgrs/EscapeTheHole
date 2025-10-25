@@ -70,6 +70,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             Lazer lazer = Instantiate(lazerPrefab, fruit.transform.position, fruit.transform.rotation);
+            lazer.damage = level;
             lazer.GetComponent<Rigidbody>().AddForce(fruit.transform.right * -900f);
         }
 
@@ -158,6 +159,8 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(GameManager.Instance.isPause) return;
+
         if (move.magnitude > 0.01f)
         {
             // Déplacement
@@ -175,6 +178,7 @@ public class Player : MonoBehaviour
             Quaternion targetRot = Quaternion.LookRotation(moveDir, Vector3.up);
 
             rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime));
+
         }
     }
 }

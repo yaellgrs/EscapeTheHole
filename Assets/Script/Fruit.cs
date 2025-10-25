@@ -8,6 +8,9 @@ public class Fruit : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Debug.Log( gameObject.name + " : " + collision.gameObject.name +  " : " +collision.collider);
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Hole"))
+        {
+            transform.position += Vector3.up * 0.5f;    
+        }
     }
 }

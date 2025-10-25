@@ -19,10 +19,13 @@ public class SelectLevelUI : MonoBehaviour
     private void Start()
     {
         Close();
+        Debug.Log("close");
     }
+
 
     private void OnEnable()
     {
+        Debug.Log("Enable SelectLevelUI");
         var root = document.rootVisualElement;
 
         Lbl_title = root.Q<Label>("title");
@@ -70,11 +73,12 @@ public class SelectLevelUI : MonoBehaviour
 
     public void Open()
     {
+        Debug.Log("Open SelectLevelUI");
         document.gameObject.SetActive(true);
     }
     private void Close()
     {
-        document.gameObject.SetActive(false);
+        if (document != null && document.gameObject != null) document.gameObject.SetActive(false);
     }
 
     private void OnDisable()

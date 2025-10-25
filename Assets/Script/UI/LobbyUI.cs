@@ -3,6 +3,14 @@ using UnityEngine.UIElements;
 
 public class LobbyUI : MonoBehaviour
 {
+    public static LobbyUI Instance;
+
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
+
     [SerializeField] private UIDocument document;
     [SerializeField] private SelectLevelUI selectLevelUI;
 
@@ -10,6 +18,8 @@ public class LobbyUI : MonoBehaviour
 
     private Button Btn_Play;
     private Button Btn_Exit;
+
+    public bool openSelectLevel = false;
 
 
     private void OnEnable()
@@ -25,6 +35,15 @@ public class LobbyUI : MonoBehaviour
 
         Btn_Play.clicked += Play;
         Btn_Exit.clicked += Exit;
+    }
+
+    private void Update()
+    {
+        if (openSelectLevel)
+        {
+            Play();
+            openSelectLevel = false;
+        }
     }
 
     private void setAnim()
@@ -48,7 +67,7 @@ public class LobbyUI : MonoBehaviour
         }).StartingIn(1000);
     }
 
-    private void Play()
+    public void Play()
     {
         Close();
     }
@@ -69,8 +88,11 @@ public class LobbyUI : MonoBehaviour
 
     private void Close()
     {
-        selectLevelUI.Open();
-        document.gameObject.SetActive(false);
+        if (selectLevelUI != null)
+            selectLevelUI.Open();
+
+        if (document != null && document.gameObject != null)
+            document.gameObject.SetActive(false);
     }
 
     private void OnDisable()

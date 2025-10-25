@@ -4,6 +4,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 using static UnityEngine.Rendering.DebugUI;
@@ -25,9 +26,9 @@ public class Hole : MonoBehaviour
     [SerializeField] private Image lifeLerpBarre;
     public float xp = 0;
     private float xpMax = 4f;
-    private int level = 1;
+    public int level = 1;
 
-    private float lifeMax = 10f;
+    public float lifeMax = 10f;
     private float life;
     private float lifeRegen = 1f;
 
@@ -65,6 +66,19 @@ public class Hole : MonoBehaviour
         xpBarre.fillAmount = Mathf.Lerp(xpBarre.fillAmount, 0.1f + (xp / xpMax) * (0.9f - 0.1f), 3* Time.deltaTime);
         lifeBarre.fillAmount = Mathf.Lerp(lifeBarre.fillAmount, (life / lifeMax), 3 * Time.deltaTime);
         lifeLerpBarre.fillAmount = Mathf.Lerp(lifeLerpBarre.fillAmount, (life / lifeMax), 1f * Time.deltaTime);
+
+        RegenLife();
+    }
+
+    private void RegenLife()
+    {
+        if(life >= lifeMax) return;
+        lifeRegen -= Time.deltaTime;
+        if(lifeRegen <= 0f)
+        {
+            lifeRegen = 1f;
+            life = Mathf.Clamp(life + 1f, 0, lifeMax);
+        }
     }
 
     public void addXp(float amount)
@@ -83,7 +97,10 @@ public class Hole : MonoBehaviour
     public void getDamage(float amount)
     {
         life -= amount;
-        if (life <= 0) { Destroy(gameObject); }
+        if (life <= 0) {
+            GameManager.Instance.FinishGame();
+            Destroy(gameObject);
+        }
     }
 
     public void calculFocusing()
@@ -113,7 +130,7 @@ public class Hole : MonoBehaviour
 
     public void setFocusing()
     {
-        if (agent == null) return; 
+        //if (agent == null) return; 
 
         if (isfocusPlayer && player != null && player.fruit != null)
             agent.SetDestination(player.fruit.transform.position);
@@ -121,12 +138,14 @@ public class Hole : MonoBehaviour
         {
             agent.SetDestination(focusedFruit.transform.position);
         }
-        else
-            agent.ResetPath(); // pour éviter qu’il reste bloqué
+/*        else
+            agent.ResetPath(); // pour éviter qu’il reste bloqué*/
     }
 
     private Fruit getFocusedFruit()
     {
+        Debug.Log("fruits : " + fruits.Count);
+        
         foreach(Fruit fruit in fruits.ToList())
         {
             if(fruit == null) continue;
