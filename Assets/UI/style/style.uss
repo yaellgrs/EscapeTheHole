@@ -101,3 +101,17 @@
     left: -80%;
     transition-duration: 0.5s;
 }
+
+.resetVE {
+    flex-grow: 1;
+    position: absolute;
+    height: 25%;
+    width: 12.5%;
+    top: 65%;
+    left: 82.5%;
+    transition-duration: 0.5s;
+}
+
+.resetVEBottom {
+    top: 105%;
+}

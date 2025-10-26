@@ -15,5 +15,9 @@
         <ui:VisualElement style="flex-grow: 1; position: absolute; height: 15%; width: 70%; top: 75%; left: 15%;">
             <ui:Button text="EXIT" name="back" class="button BtnExit" style="left: 30%; background-color: rgb(255, 40, 23);" />
         </ui:VisualElement>
+        <ui:VisualElement name="resetVE" class="resetVE">
+            <ui:Label text="reset" style="width: 100%; height: 30%; font-size: 25px; -unity-font-style: bold; color: rgb(255, 255, 255); -unity-text-align: middle-center;" />
+            <ui:Button name="reset" class="button" style="position: absolute; height: 70%; width: 100%; top: 30%; left: 0; border-top-width: 10px; border-right-width: 10px; border-bottom-width: 10px; border-left-width: 10px; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; border-left-color: rgb(105, 0, 255); border-right-color: rgb(105, 0, 255); border-top-color: rgb(105, 0, 255); border-bottom-color: rgb(105, 0, 255); background-color: rgba(188, 188, 188, 0); background-image: url(&quot;project://database/Assets/Art/Circle.png?fileID=2800000&amp;guid=369040278caee37428f392212d801cdb&amp;type=3#Circle&quot;); background-size: 50% 50%; transition-duration: 0.5s;" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

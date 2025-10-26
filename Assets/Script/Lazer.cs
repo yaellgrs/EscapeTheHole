@@ -19,13 +19,6 @@ public class Lazer : MonoBehaviour
         if (hole != null)
         {
             hole.getDamage(damage);
-            Debug.Log("hole hit");
-
-
-        }
-        else
-        {
-            Debug.Log("hole not find but : " + other.gameObject.name);
         }
 
     }

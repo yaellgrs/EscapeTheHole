@@ -459,6 +459,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1350077601}
+    - target: {fileID: 2828361592936115892, guid: f73f1346c1b03d54bb7a922ccb2bf0c4, type: 3}
+      propertyPath: m_VersionIndex
+      value: 2191
+      objectReference: {fileID: 0}
     - target: {fileID: 2830611295223878228, guid: f73f1346c1b03d54bb7a922ccb2bf0c4, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -471,10 +475,18 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1740551784}
+    - target: {fileID: 3499780031586790587, guid: f73f1346c1b03d54bb7a922ccb2bf0c4, type: 3}
+      propertyPath: m_VersionIndex
+      value: 5405
+      objectReference: {fileID: 0}
     - target: {fileID: 3879170757288072048, guid: f73f1346c1b03d54bb7a922ccb2bf0c4, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1109212031}
+    - target: {fileID: 3879170757288072048, guid: f73f1346c1b03d54bb7a922ccb2bf0c4, type: 3}
+      propertyPath: m_VersionIndex
+      value: 1989
+      objectReference: {fileID: 0}
     - target: {fileID: 4256812081400075748, guid: f73f1346c1b03d54bb7a922ccb2bf0c4, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1227,6 +1239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   document: {fileID: 1696776410}
   selectLevelUI: {fileID: 1789964438}
+  openSelectLevel: 0
 --- !u!43 &1740551784
 Mesh:
   m_ObjectHideFlags: 0

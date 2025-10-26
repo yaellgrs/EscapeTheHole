@@ -13,27 +13,40 @@ public class Hole : MonoBehaviour
 {
     public Collider solCollider;
     public Player player;
-    private NavMeshAgent agent;
 
+
+    [Header("-- navmesh --")]
     public float setFocusTimer = 5f;
     private float timeTrackingPlayer = 5f;
+    private NavMeshAgent agent;
     public bool isfocusPlayer = true;
-    public Fruit focusedFruit;
-    public List<Fruit> fruits;
 
-    [SerializeField] private Image xpBarre;
-    [SerializeField] private Image lifeBarre;
-    [SerializeField] private Image lifeLerpBarre;
+
+    [Header("-- xp --")]
     public float xp = 0;
     private float xpMax = 4f;
     public int level = 1;
 
+    [Header("-- life --")]
     public float lifeMax = 10f;
     private float life;
     private float lifeRegen = 1f;
 
 
+
+
+    [Header("-- UI --")]
+    [SerializeField] private Image xpBarre;
+    [SerializeField] private Image lifeBarre;
+    [SerializeField] private Image lifeLerpBarre;
+
+    [Header("-- fruits --")]
+    public Fruit focusedFruit;
+    public List<Fruit> fruits;
+
+    [Header("-- other --")]
     private float baseY;
+
     private void Awake()
     {
         baseY = transform.position.y;
@@ -54,6 +67,7 @@ public class Hole : MonoBehaviour
 
     void Update()
     {
+        if (agent.velocity == Vector3.zero) setFocusTimer -= 2*Time.deltaTime;
 
         Vector3 pos = transform.position;
         pos.y = baseY;
@@ -98,7 +112,7 @@ public class Hole : MonoBehaviour
     {
         life -= amount;
         if (life <= 0) {
-            GameManager.Instance.FinishGame(false);
+            GameManager.Instance.FinishGame(true);
             Destroy(gameObject);
         }
     }
@@ -143,7 +157,6 @@ public class Hole : MonoBehaviour
     }
     private Fruit GetFocusedFruit()
     {
-        Debug.Log($"fruits : {fruits.Count}");
 
         // Mélange la liste (Fisher–Yates)
         for (int i = 0; i < fruits.Count; i++)

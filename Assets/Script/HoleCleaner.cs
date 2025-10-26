@@ -18,7 +18,7 @@ public class HoleCleaner : MonoBehaviour
         Player player = other.gameObject.GetComponentInParent<Player>();
         if(player != null)
         {
-            GameManager.Instance.FinishGame(true);
+            GameManager.Instance.FinishGame(false);
         }
 
 

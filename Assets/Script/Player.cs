@@ -128,7 +128,6 @@ public class Player : MonoBehaviour
                 fruitPrefab = waterMelonPrefab;
                 break;
             default:
-                Debug.LogWarning("Aucun fruit pour le niveau " + level);
                 return;
         }
         if (fruit != null) Destroy(fruit);

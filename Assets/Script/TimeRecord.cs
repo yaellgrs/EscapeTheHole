@@ -4,11 +4,28 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TimeRecord", menuName = "Scriptable Objects/TimeRecord")]
 public class TimeRecord : ScriptableObject
 {
-    public static TimeRecord Instance;
+    private static TimeRecord _instance;
+    public static TimeRecord Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                // Essaie de charger depuis Resources s'il existe un asset
+                _instance = Resources.Load<TimeRecord>("TimeRecord");
+
+                // Si rien trouvé, on en crée un (pour éviter un crash)
+                if (_instance == null)
+                {
+                    _instance = ScriptableObject.CreateInstance<TimeRecord>();
+                }
+            }
+            return _instance;
+        }
+    }
 
     private void OnEnable()
     {
-        Instance = this; // assignation automatique quand l'asset est chargé
     }
 
 
@@ -18,11 +35,10 @@ public class TimeRecord : ScriptableObject
         string key = "Record_" + sceneName;
 
         // Vérifie s'il existe déjà un record et si le nouveau est meilleur
-        if (!PlayerPrefs.HasKey(key) || time < PlayerPrefs.GetFloat(key))
+        if (!PlayerPrefs.HasKey(key) || time < PlayerPrefs.GetFloat(key) || PlayerPrefs.GetFloat(key) <= 0f)
         {
             PlayerPrefs.SetFloat(key, time);
             PlayerPrefs.Save();
-            Debug.Log($"Nouveau record pour {sceneName} : {time:F2} secondes");
         }
     }
 

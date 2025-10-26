@@ -1,4 +1,4 @@
-using Mono.Cecil.Cil;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -30,27 +30,30 @@ public class FinishLevelUI : MonoBehaviour
         Btn_restart = root.Q<Button>("restart");
         Lbl_timer = root.Q<Label>("time");
 
+
+        Btn_home.clicked += HomeClicked;
+        Btn_restart.clicked += RestartClicked;
+
         if (isWin)
         {
             if (GameManager.Instance != null)
             {
                 Lbl_timer.text = GameManager.getTimeString(GameManager.Instance.timer);
                 
-                    TimeRecord.Instance.RecordTime(SceneManager.GetActiveScene().name, GameManager.Instance.timer);
+                TimeRecord.Instance.RecordTime(SceneManager.GetActiveScene().name, GameManager.Instance.timer);
             }
         }
         else Lbl_timer.text = "game over";
 
-        Btn_home.clicked += HomeClicked;
-        Btn_restart.clicked += RestartClicked;
 
 
     }
 
     public void Open(bool IsWin)
     {
-        document.gameObject.SetActive(true);
         isWin = IsWin;
+        document.gameObject.SetActive(true);
+
 
     }
 
@@ -76,5 +79,6 @@ public class FinishLevelUI : MonoBehaviour
     private void OnDisable()
     {
         Btn_home.clicked -= HomeClicked;
+        Btn_restart.clicked -= RestartClicked;
     }
 }
