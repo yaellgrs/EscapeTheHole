@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     [Header("-- movement --")]
     public float speed = 5f;
     public float rotationSpeed = 2f;
-    private float sprintTime = 1f;
+    private float sprintTime = 2f;
     private float sprintSpeed = 0f;
     private Vector3 move;
 
@@ -93,10 +93,10 @@ public class Player : MonoBehaviour
 
     private void upSprint()
     {
-        if(sprintTime < 1f) sprintTime += Time.deltaTime/5;
+        if(sprintTime < 2f) sprintTime += Time.deltaTime/5;
         if(sprintTime > 0 && Input.GetKey(KeyCode.LeftShift))
         {
-            sprintSpeed = 3f;
+            sprintSpeed = 4f;
             sprintTime -= Time.deltaTime;
         }
         else
@@ -105,7 +105,7 @@ public class Player : MonoBehaviour
         }
         if(sprintTime < 0f) sprintTime = 0f;
 
-        HUD.instance.upSprint((sprintTime / 1) * 100f);
+        HUD.instance.upSprint((sprintTime / 2f) * 100f);
     }
 
 

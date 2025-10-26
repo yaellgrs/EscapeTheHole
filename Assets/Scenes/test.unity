@@ -2280,12 +2280,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1924013088}
     - target: {fileID: 8248999302820547432, guid: f73f1346c1b03d54bb7a922ccb2bf0c4, type: 3}
+      propertyPath: level
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8248999302820547432, guid: f73f1346c1b03d54bb7a922ccb2bf0c4, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1182156845}
     - target: {fileID: 8248999302820547432, guid: f73f1346c1b03d54bb7a922ccb2bf0c4, type: 3}
       propertyPath: lifeMax
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8248999302820547432, guid: f73f1346c1b03d54bb7a922ccb2bf0c4, type: 3}
       propertyPath: solCollider
